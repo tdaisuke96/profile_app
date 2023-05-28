@@ -8,9 +8,27 @@
                                'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag    'application',
                                'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
   </head>
 
   <body>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <!--link_toは第一引数が文字列、第二引数はURL、第三引数はオプションハッシュでCSSのid指定-->
+        <%= link_to "My Portfolio", '#', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "ログイン", '#' %></li>
+            <li><%= link_to "Sign up",'#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
