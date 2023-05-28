@@ -1,4 +1,8 @@
 class ProfilePagesController < ApplicationController
+  def index
+    
+  end 
+  
   def profile_edit
   end
 
