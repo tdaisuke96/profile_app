@@ -15,10 +15,10 @@
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
+    <header class="navbar navbar-fixed-top">
       <div class="container">
         <!--link_toは第一引数が文字列、第二引数はURL、第三引数はオプションハッシュでCSSのid指定-->
-        <%= link_to "My Portfolio", '#', id: "logo" %>
+        <%= link_to "My Portfolio", root_path, id: "logo" %>
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "ログイン", '#' %></li>
