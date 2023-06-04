@@ -5,10 +5,13 @@ class ProfilePagesController < ApplicationController
   #　→モデルからデータを持ってきて、ビューに渡す。
   def index
     @user = User.find(1)
-    #ユーザーのスキルは複数なので配列に格納する必要あり
-    # tutorial参考にできるかも
-    @user_skills = SkillDetail.find_by(user_id: 1)
-    puts(@user_skills)
+    
+    #一時的にスキルだけ格納
+    #カテゴリごとに配列に格納できるように後で修正
+    @user_skills = SkillDetail.where(user_id: 1)
+    puts('debug info-------')
+    puts(@user_skills.to_json)
+    puts('-----------------')
   end
 
 =begin

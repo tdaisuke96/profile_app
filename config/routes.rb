@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get '/user_profile/edit'
   get '/user_profile/index'
+  post '/user_profile/update'
   get '/user_skill/index'
   get '/user_skill/edit'
   get '/signup', to: 'users#new'

@@ -8,7 +8,12 @@
 
 <div>
   <h3>スキルチャート</h3>
-  <p><%= @user_skills.skill_name%></p>
+
+  <ul>
+    <% @user_skills.each do |skill| %>
+    <li><%= skill.skill_name %></li>
+    <% end %>
+  </ul>
   <%= button_to "スキル編集", { controller: 'user_skill', action: 'index' }, { method: :get } %>
 </div>
 
