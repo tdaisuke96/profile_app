@@ -2,13 +2,12 @@
 <div>
   <h1>自己紹介を編集する</h1>
   <div class="mb-3">
-    <label for="selfIntroduction" class="form-label">自己紹介</label>
-    <textarea class="form-control" id="selfIntroduction" rows="5">
-      <%= @self_introduction.self_introduction %>
-    </textarea>
+    <%= form_with(model: @user) do |form| %>
+      <%= form.label "自己紹介" %>
+      <%= form.text_area :self_introduction, class: "form-control" %>
+      <br>
+      <%= form.submit "自己紹介文を確定する", class: "btn btn-primary" %>
+    <% end %>
   </div>
   <br>
-  <div>
-      <%= button_to "自己紹介文を確定する", {controller: 'user_profile', action: 'update'}, {method: :post, params: { self_introduction: @self_introduction.self_introduction } } %>
-  </div>
 </div>
