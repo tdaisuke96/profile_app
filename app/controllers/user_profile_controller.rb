@@ -6,6 +6,9 @@ class UserProfileController < ApplicationController
     puts(@self_introduction.to_json)
     puts('-----------------')
   end
+  def show
+    
+  end
   def update
     #@self_introduction = User.find(1)
     puts('params check------------')
