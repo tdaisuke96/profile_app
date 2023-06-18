@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "profile_pages#index"
+  #root "profile_pages#index" #未ログインページ要実装
+  root 'profile_pages#show'
   
   #profile_pages : ユーザーごとのトップページ
     #get : show
@@ -24,8 +25,10 @@ Rails.application.routes.draw do
     #get /:id/edit : edit #スキル追加画面
     #post /:id/edit : create #スキル追加処理
     #memo : get '/user_skill/index'
-  get "/user_skill", to: "user_skill#index"
-  get '/user_skill/:id', to: 'user_skill#show'#未実装
+
+
+  get '/user_skill', to: 'user_skill#index', as: 'user_skill'
+  get '/user_skill/:id', to: 'user_skill#show' #未実装 
   put '/user_skill/:id', to: 'user_skill#update'#未実装
   patch '/user_skill/:id', to: 'user_skill#update'#未実装
   delete '/user_skill/:id', to: 'user_skill#destroy'#未実装
@@ -38,4 +41,5 @@ Rails.application.routes.draw do
   
   #user_profileからusersモデルを取得できるようにコントローラーで処理追加する
   resources :users
+  
 end
