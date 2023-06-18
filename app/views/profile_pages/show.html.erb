@@ -1,0 +1,25 @@
+<% provide(:title, "Profile Pages") %>
+
+<div>
+  <h3>自己紹介</h3>
+  <p><%= @user.self_introduction %></p>
+  <%= button_to "自己紹介文を編集する", { controller: 'user_profile', action: 'show', id: @user.id }, method: :get %>
+</div>
+
+<div>
+  <h3>スキルチャート</h3>
+
+  <ul>
+    <% @user_skills.each do |skill| %>
+      <li><%= skill.skill_name %></li>
+    <% end %>
+  </ul>
+
+    <%= button_to "スキルを編集する", { controller: 'user_skill', action: 'show', id: @user.id }, method: :get %>
+
+</div>
+
+<h1>ProfilePages#show</h1>
+<br><br>
+
+

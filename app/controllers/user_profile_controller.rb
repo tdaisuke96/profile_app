@@ -1,4 +1,5 @@
 class UserProfileController < ApplicationController
+  #不要？
   def index
     @self_introduction = User.find(1)
     @user = User.find(1)
@@ -6,6 +7,16 @@ class UserProfileController < ApplicationController
     puts(@self_introduction.to_json)
     puts('-----------------')
   end
+  
+
+  def show
+    @self_introduction = User.find(params[:id])
+    @user = User.find(params[:id])
+    puts('self_introduction-------')
+    puts(@self_introduction.to_json)
+    puts('-----------------')
+  end    
+  
   def update
     #@self_introduction = User.find(1)
     puts('params check------------')
