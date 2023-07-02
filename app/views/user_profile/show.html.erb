@@ -1,16 +1,31 @@
-<h1>user_profile#show</h1>
-<h2>user_profile/:id</h2>
+
 
 <% provide(:title, "Edit Profile Pages") %>
-<div>
+  <h2>user_profile/#show</h2>
+  <h2>user_profile/:id</h2>
   <h1>自己紹介を編集する</h1>
-  <div class="mb-3">
-    <%= form_with(model: @user) do |form| %>
-      <%= form.label "自己紹介" %>
-      <%= form.text_area :self_introduction, class: "form-control" %>
-      <br>
-      <%= form.submit "自己紹介文を確定する", class: "btn btn-primary" %>
-    <% end %>
+  <!-- profile-form > profile-edit, file-upload, confirm-buttonそれぞれのflexbox?-->
+  <div class="profile-form">
+    <div class="profile-edit">
+      <lavel for="self-introduction">自己紹介文</lavel>
+      <textarea id="self-introduction" name="self-introduction" rows="5" cols="33">
+        <%= @user.self_introduction %>
+      </textarea>
+      <lavel>200文字以上、800文字未満で入力してください</lavel>
+    </div>
+    
+    <div class="file-upload">
+      <lavel for="profile-image">
+        アバター画像
+      </lavel>
+      <button id="profile-image">
+        画像ファイルを添付する
+      </button>
+    </div>
+    <div class="confirm-button">
+      <button>
+        自己紹介を確定する
+      </button>
+    </div>
   </div>
-  <br>
-</div>
+
