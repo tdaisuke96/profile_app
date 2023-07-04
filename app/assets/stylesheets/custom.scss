@@ -1,6 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+html {
+  width: 1440px;
+  height: 1024px;
+}
 body {
   padding-top: 60px;
 }
