@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     #get : show
     #put, patch : update
     #memo : get '/user_profile/index'
-  get "/user_profile", to: "user_profile#index"
-  put '/user_profile/:id', to: 'user_profile#update'#未実装
-  get '/user_profile/:id', to: 'user_profile#show' #未実装
+  # get "/user_profile", to: "user_profile#index"
+  put '/user_profile/:id', to: 'user_profile#update'#不要
+  # get '/user_profile/:id', to: 'user_profile#show' #不要
   get '/user_profile/:id/edit', to:'user_profile#edit', as: 'user_profile_edit'
 
 

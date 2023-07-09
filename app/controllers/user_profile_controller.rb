@@ -1,34 +1,10 @@
 class UserProfileController < ApplicationController
-  #不要？
-  def index
-    @self_introduction = User.find(1)
-    @user = User.find(1)
-    puts('self_introduction-------')
-    puts(@self_introduction.to_json)
-    puts('-----------------')
-  end
-  
-# showも画面表示用のメソッドだが使わず、editを使用??
-  def show
-    @self_introduction = User.find(params[:id])
-    @user = User.find(params[:id])
-    puts('self_introduction-------')
-    puts(@self_introduction.to_json)
-    puts('-----------------')
-  end    
-
   def edit
-    # @self_introduction = User.find(params[:id])
     @user = User.find(params[:id])
-    # puts('self_introduction edit-------')
-    # puts(@self_introduction.to_json)
-    # puts('-----------------')
   end
 
   def update
-    #@self_introduction = User.find(1)
     @user = User.find(params[:id])
-    # puts(params[:selfIntroduction])
     # viewのパラメータをストロングパラメータ経由で取得
     profile_image = user_params[:profile_image]
     self_introduction = user_params[:self_introduction]
@@ -50,10 +26,6 @@ class UserProfileController < ApplicationController
   
   private
     def user_params
-      puts('strong params-------')
-      puts(params.require(:user).permit(:self_introduction, :profile_image))
-      puts('--------------------')
       params.require(:user).permit(:self_introduction, :profile_image)
-
     end
 end
