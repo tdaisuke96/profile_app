@@ -5,7 +5,7 @@
   <%= image_tag profile_image_path(@user), width: '400px' %>
 
   <p><%= @user.self_introduction %></p>
-  <%= button_to "自己紹介文を編集する", { controller: 'user_profile', action: 'show', id: @user.id }, method: :get %>
+  <!--%= button_to "自己紹介文を編集する", { controller: 'user_profile', action: 'show', id: @user.id }, method: :get %>-->
   <%= button_to "自己紹介文を編集する", user_profile_edit_path(@user), method: :get  %>
 </div>
 
