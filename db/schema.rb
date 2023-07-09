@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_06_03_074347) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.text "self_introduction"
+    t.binary "profile_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

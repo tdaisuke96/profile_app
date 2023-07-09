@@ -1,5 +1,5 @@
 
-
+<!--不要-->
 <% provide(:title, "Edit Profile Pages") %>
   <h2>user_profile/#show</h2>
   <h2>user_profile/:id</h2>
@@ -18,7 +18,7 @@
         画像ファイルを添付する
       </button>
     </div>
-    <%= submit_tag '自己紹介を確定する', class: 'confirm-button' %>
+    <%= button_to '自己紹介を確定する' %>
     <!--profileform end div-->
 <% end %>
   

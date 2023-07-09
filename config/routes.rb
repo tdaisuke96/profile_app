@@ -5,16 +5,19 @@ Rails.application.routes.draw do
   #profile_pages : ユーザーごとのトップページ
     #get : show
     #loginした時の処理
+    # pfofile_imageとしてユーザーごとの画像URLを生成
   get '/profile_pages/:id', to: 'profile_pages#show'#未実装
+  get '/profile_pages/:id/profile_image', to: 'profile_pages#send_image', as: 'profile_image'
 
   #user_profile : ユーザーごとの自己紹介編集ページ
     #get : show
     #put, patch : update
     #memo : get '/user_profile/index'
   get "/user_profile", to: "user_profile#index"
-  get '/user_profile/:id', to: 'user_profile#show' #未実装
-  get '/user_profile/edit'#不要
   put '/user_profile/:id', to: 'user_profile#update'#未実装
+  get '/user_profile/:id', to: 'user_profile#show' #未実装
+  get '/user_profile/:id/edit', to:'user_profile#edit', as: 'user_profile_edit'
+
 
 
   # user_skill : ユーザーごとの各カテゴリのスキル一覧画面
@@ -33,13 +36,12 @@ Rails.application.routes.draw do
   patch '/user_skill/:id', to: 'user_skill#update'#未実装
   delete '/user_skill/:id', to: 'user_skill#destroy'#未実装
   
-  get '/user_skill/:id/edit', to: 'user_skill#edit'#未実装
+  get '/user_skill/:id/edit', to: 'user_skill#edit', as: 'user_skill_edit'#未実装
   post '/user_skill/:id/edit', to: 'user_skill#create'#未実装
   
   
   get '/signup', to: 'users#new'
   
   #user_profileからusersモデルを取得できるようにコントローラーで処理追加する
-  resources :users
-  
+
 end

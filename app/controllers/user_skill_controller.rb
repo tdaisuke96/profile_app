@@ -3,10 +3,6 @@ class UserSkillController < ApplicationController
     # リクエストを受け取った時の処理＝/user_skill/1でリクエストされた時の処理
     @user = User.find(params[:id])
     #@user_id = User.find(1)
-    puts('user_skill  show!!!!!-------')
-    puts(@user.to_json)
-    puts('-----------------')
-    
     
     #一時的にスキルだけ格納
     #カテゴリごとに配列に格納できるように後で修正
@@ -22,5 +18,12 @@ class UserSkillController < ApplicationController
     
   end
   def edit
+    @user = User.find(params[:id])
+    #@user_id = User.find(1)
+    
+    #一時的にスキルだけ格納
+    #カテゴリごとに配列に格納できるように後で修正
+    @user_skills = SkillDetail.where(user_id:params[:id])
+    @skill_categories = SkillCategory.all
   end
 end

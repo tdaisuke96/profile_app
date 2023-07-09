@@ -1,0 +1,54 @@
+<h1>user_skill#edit</h1>
+<h2>user_skill/:id/edit</h2>
+
+<div class="user-skills">
+
+<% @skill_categories.each do |skill_category| %>
+  <div class="skill-category">
+  <h2><%= skill_category.skill_category %></h2>
+  <!--スキルカテゴリーを回して、-->
+  <!--スキル一覧（該当ユーザーの）も回す→カテゴリーIDが同じ時表示-->
+  <!--1カテゴリ：1追加ボタン＆1ラベル（スキル名、スキルレベル）＆複数スキル-->
+  <!--※複数スキル⇨スキル1：点数と更新、削除ボタン（それぞれ一つずつ）-->
+  <% @user_skills.each do |skill| %>
+    <% if skill_category.id === skill.skill_category_id %>
+      <h3>・<%= skill.skill_name%></h3>
+      <p><%= select_tag "skill-level", options_for_select((0..100).step(10).to_a), include_blank: true %></p>
+      <p><%= button_to "習得レベルを保存する", class: "#"%></p>
+      <p><%= button_to "スキルを削除する", class: "#"%></p>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+</div>
+
+
+
+
+
+<% @skill_categories.each do |skill_category| %>
+  <h2><%= skill_category.skill_category %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>スキル</th>
+      <th>スキルレベル</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_skills.each do |skill| %>
+      <% if skill_category.id === skill.skill_category_id %>
+        <tr>
+          <td><%= skill.skill_name %></td>
+          <td><%= select_tag "skill-level", options_for_select((0..100).step(10).to_a), include_blank: "{#skill.skill_level}" %></td>
+          <td><%= submit_tag '保存' %></td>
+          <td><%= button_tag '削除' %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
