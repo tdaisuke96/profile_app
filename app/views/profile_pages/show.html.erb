@@ -18,7 +18,7 @@
     <% end %>
   </ul>
 
-    <%= button_to "スキルを編集する", { controller: 'user_skill', action: 'show', id: @user.id }, method: :get %>
+    <!--%= button_to "スキルを編集する", { controller: 'user_skill', action: 'show', id: @user.id }, method: :get %>-->
     <%= button_to "スキルを編集する", user_skill_edit_path(@user), method: :get %>
 
 </div>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get '/user_profile/:id/edit', to:'user_profile#edit', as: 'user_profile_edit'
 
 
-
+# ※下記全面見直し
   # user_skill : ユーザーごとの各カテゴリのスキル一覧画面
     #get /:id : show #ユーザースキル一覧画面
     #put, patch /:id: update
@@ -30,14 +30,17 @@ Rails.application.routes.draw do
     #memo : get '/user_skill/index'
 
 
-  get '/user_skill', to: 'user_skill#index', as: 'user_skill'
-  get '/user_skill/:id', to: 'user_skill#show' #未実装 
-  put '/user_skill/:id', to: 'user_skill#update'#未実装
-  patch '/user_skill/:id', to: 'user_skill#update'#未実装
-  delete '/user_skill/:id', to: 'user_skill#destroy'#未実装
+  # get '/user_skill', to: 'user_skill#index', as: 'user_skill'
+  # get '/user_skill/:id', to: 'user_skill#show' #未実装 
+  # put '/user_skill/:id', to: 'user_skill#update'#未実装
+  # patch '/user_skill/:id', to: 'user_skill#update'#未実装
+  # delete '/user_skill/:id', to: 'user_skill#destroy'#未実装
   
   get '/user_skill/:id/edit', to: 'user_skill#edit', as: 'user_skill_edit'#未実装
   post '/user_skill/:id/edit', to: 'user_skill#create'#未実装
+  put '/user_skill/:id/edit', to: 'user_skill#update'#未実装
+  patch '/user_skill/:id/edit', to: 'user_skill#update'#未実装
+  delete '/user_skill/:id/edit', to: 'user_skill#destroy'#未実装
   
   
   get '/signup', to: 'users#new'

@@ -26,4 +26,9 @@ class UserSkillController < ApplicationController
     @user_skills = SkillDetail.where(user_id:params[:id])
     @skill_categories = SkillCategory.all
   end
+  
+  def destroy
+    puts('destroy!!!!!!!!')
+  end
+  
 end
