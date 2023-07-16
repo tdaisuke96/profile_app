@@ -15,6 +15,7 @@ class UserProfileController < ApplicationController
     update_params = {}
     # key:valueでセット（self_introductionは必須）
     update_params[:self_introduction] = self_introduction
+    
     if profile_image != nil
       # 上記作成したハッシュのkey:profile_imageに選択画像をバイナリ化して格納
       update_params[:profile_image] = profile_image.read
