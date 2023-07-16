@@ -1,4 +1,9 @@
 class UserSkillController < ApplicationController
+  def create
+    puts('create!!!')
+    puts('end')
+  end
+  
   def show
     # リクエストを受け取った時の処理＝/user_skill/1でリクエストされた時の処理
     @user = User.find(params[:id])
@@ -27,8 +32,16 @@ class UserSkillController < ApplicationController
     @skill_categories = SkillCategory.all
   end
   
+  def update
+    puts('save!!!')
+    p params
+    puts('------------')
+  end
+  
   def destroy
     puts('destroy!!!!!!!!')
+    p params
+    puts('------------')
   end
   
 end

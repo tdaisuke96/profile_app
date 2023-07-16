@@ -3,8 +3,8 @@ class CreateSkillDetails < ActiveRecord::Migration[6.0]
     create_table :skill_details do |t|
       t.string :skill_name
       t.integer :skill_level
-      t.integer :skill_category_id
-      t.integer :user_id
+      t.references :user, null: false, foreign_key: true
+      t.references :skill_category, null: false, foreign_key: true
 
       t.timestamps
     end

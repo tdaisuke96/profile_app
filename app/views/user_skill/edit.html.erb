@@ -1,3 +1,4 @@
+<% provide(:title, "Skill Detail Pages") %>
 <h1>user_skill#edit</h1>
 <h2>user_skill/:id/edit</h2>
 
@@ -7,37 +8,62 @@
   <!--※複数スキル⇨スキル1：点数と更新、削除ボタン（それぞれ一つずつ）-->
 
 
-
+<main>
 <div class="user-skills">
 <% @skill_categories.each do |skill_category| %>
   <div class="skill-category">
-
-  <h2><%= skill_category.skill_category %></h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>スキル</th>
-        <th>スキルレベル</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user_skills.each do |skill| %>
-        <% if skill_category.id === skill.skill_category_id %>
+    <div class="category-content">
+      <div class="category-title">
+        <div class="category-name">
+          <%= skill_category.skill_category %>
+          <hr>
+        </div>
+        <%= button_to 'スキルを追加する'%>
+      </div>
+    
+      <table>
+        <thead>
           <tr>
-            <td><%= skill.skill_name %></td>
-            <td><%= form_with(model: @skilldetail, local: true) do |f| %>
-                <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>
-                <% end %></td>
-            <td><%= submit_tag '習得レベルを保存する' %></td>
-            <td><%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>
+            <th>スキル</th>
+            <th>スキルレベル</th>
+            <th></th>
+            <th></th>
           </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+          <% @user_skills.each do |skill| %>
+            <% if skill_category.id === skill.skill_category_id %>
+              <!--<tr>-->
+              <!--  <td><!%= skill.skill_name %></td>-->
+              <!--  <td><!%= form_with(model: @skilldetail, local: true) do |f| %>-->
+              <!--      <!%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>-->
+              <!--      <!% end %></td>-->
+              <!--  <td><!%= submit_tag '習得レベルを保存する' %></td>-->
+              <!--  <td><!%= button_to '習得レベルを保存する-button', user_skill_edit_path(@user), method: :put %></td>-->
+              <!--  <td><!%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>-->
+              <!--</tr>-->
+              <tr>
+                <%= form_with(model: @user_skills, url: { controller: 'user_skill', action: 'update' },method: :put) do |f| %>
+                <td>
+                  <%= skill.skill_name%>
+                </td>
+                <td>
+                  <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>
+                </td>
+                <td>
+                  <%= button_to '習得レベルを保存する' %>
+                </td>
+                <td>
+                <%= button_to 'スキルを削除する', user_skill_edit_path(@user_skills), method: :delete %>
+                </td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 <% end %>
 </div>
+</main>
