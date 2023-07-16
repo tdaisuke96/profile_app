@@ -35,13 +35,31 @@ class UserSkillController < ApplicationController
   def update
     puts('save!!!')
     p params
+    puts(skill_params[:skill_name])
     puts('------------')
+    # @user_skills = SkillDetail.where(user_id:params[:id])
+    # @skill = skill_params(:skill_level)
+    puts('skill--------------')
+    # puts(@skill)
+    @skill = SkillDetail.find(skill_params[:id])
+    puts(@skill.to_json)
+    # puts(skill_params[:skill_level])
+    # puts(params[:id].to_json)
+    @skill.update(skill_params)
   end
   
   def destroy
+    @skill =SkillDetail.find(params[:id])
     puts('destroy!!!!!!!!')
-    p params
+    puts(@skill.to_json)
     puts('------------')
+    @skill.destroy
+    redirect_to root_path
   end
   
+  private 
+    def skill_params
+      params.require(:skill_detail).permit(:skill_level, :skill_name, :id)
+    end
+
 end

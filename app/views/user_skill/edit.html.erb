@@ -43,20 +43,21 @@
               <!--  <td><!%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>-->
               <!--</tr>-->
               <tr>
-                <%= form_with(model: @user_skills, url: { controller: 'user_skill', action: 'update' },method: :put) do |f| %>
-                <td>
-                  <%= skill.skill_name%>
+                <%= form_with(model: [ @user_skills], url: { controller: 'user_skill', action: 'update' },method: :put) do |f| %>
+                <td class="skill name">
+                  <%=skill.skill_name%>
+                  <%= f.hidden_field :id, value: skill.id %>
                 </td>
-                <td>
+                <td class="skill level">
                   <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>
                 </td>
-                <td>
+                <td class="skill update-btn">
                   <%= button_to '習得レベルを保存する' %>
                 </td>
-                <td>
-                <%= button_to 'スキルを削除する', user_skill_edit_path(@user_skills), method: :delete %>
-                </td>
                 <% end %>
+                <td class="skill delete-btn">
+                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete %>
+                </td>
               </tr>
             <% end %>
           <% end %>
