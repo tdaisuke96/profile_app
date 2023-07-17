@@ -1,4 +1,6 @@
 class UserSkillController < ApplicationController
+skip_before_action :verify_authenticity_token
+
   def create
     puts('create!!!')
     puts('end')
@@ -35,17 +37,22 @@ class UserSkillController < ApplicationController
   def update
     puts('save!!!')
     p params
-    puts(skill_params[:skill_name])
+    # puts(skill_params[:skill_name])
     puts('------------')
     # @user_skills = SkillDetail.where(user_id:params[:id])
     # @skill = skill_params(:skill_level)
     puts('skill--------------')
     # puts(@skill)
-    @skill = SkillDetail.find(skill_params[:id])
+    # 下記元々
+    # @skill = SkillDetail.find(skill_params[:id])
+    @skill = SkillDetail.find(params[:id])
     puts(@skill.to_json)
     # puts(skill_params[:skill_level])
     # puts(params[:id].to_json)
-    @skill.update(skill_params)
+    # 下記元々
+    # @skill.update(skill_params)
+    @skill.update(skill_level: params[:skill_level])
+    render json: { success: true }
   end
   
   def destroy

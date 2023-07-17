@@ -43,20 +43,25 @@
               <!--  <td><!%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>-->
               <!--</tr>-->
               <tr>
-                <%= form_with(model: [ @user_skills], url: { controller: 'user_skill', action: 'update' },method: :put) do |f| %>
+                <%= form_with(model: [ @user_skills], url: { controller: 'user_skill', action: 'update' },method: :put,local: true) do |f| %>
                 <td class="skill name">
                   <%=skill.skill_name%>
                   <%= f.hidden_field :id, value: skill.id %>
                 </td>
                 <td class="skill level">
-                  <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>
+                  <!--,{},id:でidを指定-->
+                  <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level),{}, id: "skillLevelSelect_#{skill.id}" %>
                 </td>
                 <td class="skill update-btn">
-                  <%= button_to '習得レベルを保存する' %>
+                  <%= button_to '習得レベルを保存する（元）'%>
+                  <!--下記のparamsを使用してjs側でレベル取得できそう？-->
+                  <%= f.submit '習得レベルを保存する（f.submit）',params: { skill: { skill_level: skill.skill_level } }, data: { skill_id: skill.id }%>
                 </td>
                 <% end %>
                 <td class="skill delete-btn">
-                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete %>
+                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete%>
+                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete, form: { "data-skill-id": skill.id } %>
+                
                 </td>
               </tr>
             <% end %>
@@ -68,3 +73,113 @@
 <% end %>
 </div>
 </main>
+
+<div id="skill-modal" style="display: none;">
+  <div id="skill-modal-content">
+    <p id="modal-message"></p>
+    <button id="close-modal">Close</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var saveButtons = document.querySelectorAll(".update-btn");//edit
+    var deleteButtons = document.querySelectorAll(".delete-skill");
+    var modal = document.getElementById("skill-modal");
+    var modalMessage = document.getElementById("modal-message");
+    var closeModalButton = document.getElementById("close-modal");
+
+    saveButtons.forEach(function(button) {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        console.log("save!!!!")
+        // skillId, skillLevelの取得
+        // var skillId = button.dataset.skill_id
+        var skillId = e.target.dataset.skillId //OK!!!!!!!
+        var skillLevel = document.getElementById("skillLevelSelect_"+skillId).value//OK!!!
+        console.log(skillId)
+        console.log(skillLevel)
+        
+        updateSkillLevel(skillId, skillLevel);
+        
+        // スキルレベル取得しようとしたけどNG、どうやってselectされた値を取るか
+//         console.log("level!!!!");        
+// var saveButton = document.querySelector("[name='commit']");
+// console.log(saveButton);
+// var skillLevel = JSON.parse(saveButton.getAttribute("params")).skill.skill_level;
+// var skillLevel = saveButton.getAttribute("params").match(/"skill_level"=>(\d+)/)[1];
+
+// console.log(skillLevel);
+
+
+
+
+        
+        // var skillLevelInput = button.closest("form").querySelector("option[selected=selected]");
+        // var skillLevel = e.target.dataset.skillLevel
+        
+        // var skillLevelInput = button.closest("form").querySelector("input[type=number]");
+        // var skillLevel = skillLevelInput.value;
+        // updateSkillLevel(skillId, skillLevel);
+      });
+    });
+
+    deleteButtons.forEach(function(button) {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        var skillId = button.dataset.skillId;
+        deleteSkill(skillId);
+      });
+    });
+
+    closeModalButton.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    function updateSkillLevel(skillId, skillLevel) {
+      
+      var request = new XMLHttpRequest();
+      request.open("PUT", "/user_skill/" + skillId + "/edit", true);
+      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      request.onload = function() {
+        if (request.status === 200) {
+          showModal("Skill updated successfully.");
+        } else {
+          showModal("An error occurred while updating the skill.");
+        }
+      };
+      request.onerror = function() {
+        showModal("An error occurred while updating the skill.");
+      };
+      request.send(JSON.stringify({ skill_level: skillLevel }));
+    }
+
+    function deleteSkill(skillId) {
+      var request = new XMLHttpRequest();
+      request.open("DELETE", "/user/skill_details/" + skillId, true);
+      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      request.onload = function() {
+        if (request.status === 200) {
+          showModal("Skill deleted successfully.");
+          // Optionally, remove the deleted skill from the DOM
+          var skillItem = document.getElementById("skill-" + skillId);
+          if (skillItem) {
+            skillItem.parentNode.removeChild(skillItem);
+          }
+        } else {
+          showModal("An error occurred while deleting the skill.");
+        }
+      };
+      request.onerror = function() {
+        showModal("An error occurred while deleting the skill.");
+      };
+      request.send();
+    }
+
+    function showModal(message) {
+      modalMessage.textContent = message;
+      modal.style.display = "block";
+      console.log("showModal!!!!")
+    }
+  });
+</script>
