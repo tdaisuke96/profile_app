@@ -28,7 +28,7 @@ skip_before_action :verify_authenticity_token
     @user = User.find(params[:id])
     #@user_id = User.find(1)
     
-    #一時的にスキルだけ格納
+    #一��的にスキルだけ格納
     #カテゴリごとに配列に格納できるように後で修正
     @user_skills = SkillDetail.where(user_id:params[:id])
     @skill_categories = SkillCategory.all
@@ -61,12 +61,12 @@ skip_before_action :verify_authenticity_token
     puts(@skill.to_json)
     puts('------------')
     @skill.destroy
-    redirect_to root_path
+    # redirect_to root_path
+    render json: { success: true }
   end
   
   private 
     def skill_params
       params.require(:skill_detail).permit(:skill_level, :skill_name, :id)
     end
-
 end

@@ -1,6 +1,4 @@
 <% provide(:title, "Skill Detail Pages") %>
-<h1>user_skill#edit</h1>
-<h2>user_skill/:id/edit</h2>
 
   <!--スキルカテゴリーを回して、-->
   <!--スキル一覧（該当ユーザーの）も回す→カテゴリーIDが同じ時表示-->
@@ -33,17 +31,8 @@
         <tbody>
           <% @user_skills.each do |skill| %>
             <% if skill_category.id === skill.skill_category_id %>
-              <!--<tr>-->
-              <!--  <td><!%= skill.skill_name %></td>-->
-              <!--  <td><!%= form_with(model: @skilldetail, local: true) do |f| %>-->
-              <!--      <!%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>-->
-              <!--      <!% end %></td>-->
-              <!--  <td><!%= submit_tag '習得レベルを保存する' %></td>-->
-              <!--  <td><!%= button_to '習得レベルを保存する-button', user_skill_edit_path(@user), method: :put %></td>-->
-              <!--  <td><!%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>-->
-              <!--</tr>-->
-              <tr>
-                <%= form_with(model: [ @user_skills], url: { controller: 'user_skill', action: 'update' },method: :put,local: true) do |f| %>
+                <%= form_with(local: true) do |f| %>
+              <tr id="skillId-<%= skill.id %>">
                 <td class="skill name">
                   <%=skill.skill_name%>
                   <%= f.hidden_field :id, value: skill.id %>
@@ -53,16 +42,13 @@
                   <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level),{}, id: "skillLevelSelect_#{skill.id}" %>
                 </td>
                 <td class="skill update-btn">
-                  <%= button_to '習得レベルを保存する（元）'%>
-                  <!--下記のparamsを使用してjs側でレベル取得できそう？-->
-                  <%= f.submit '習得レベルを保存する（f.submit）',params: { skill: { skill_level: skill.skill_level } }, data: { skill_id: skill.id }%>
+                  <%= f.submit '習得レベルを保存する',params: { skill: { skill_level: skill.skill_level } }, data: { skill_id: skill.id }%>
+                </td>
+                <!--<!% end %>-->
+                <td class="skill delete-btn">
+                <%= f.submit 'スキルを削除する', data: { skill_id: skill.id } %>
                 </td>
                 <% end %>
-                <td class="skill delete-btn">
-                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete%>
-                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete, form: { "data-skill-id": skill.id } %>
-                
-                </td>
               </tr>
             <% end %>
           <% end %>
@@ -84,11 +70,12 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var saveButtons = document.querySelectorAll(".update-btn");//edit
-    var deleteButtons = document.querySelectorAll(".delete-skill");
+    var deleteButtons = document.querySelectorAll(".delete-btn");
     var modal = document.getElementById("skill-modal");
     var modalMessage = document.getElementById("modal-message");
     var closeModalButton = document.getElementById("close-modal");
 
+  // update
     saveButtons.forEach(function(button) {
       button.addEventListener("click", function(e) {
         e.preventDefault();
@@ -101,33 +88,16 @@
         console.log(skillLevel)
         
         updateSkillLevel(skillId, skillLevel);
-        
-        // スキルレベル取得しようとしたけどNG、どうやってselectされた値を取るか
-//         console.log("level!!!!");        
-// var saveButton = document.querySelector("[name='commit']");
-// console.log(saveButton);
-// var skillLevel = JSON.parse(saveButton.getAttribute("params")).skill.skill_level;
-// var skillLevel = saveButton.getAttribute("params").match(/"skill_level"=>(\d+)/)[1];
-
-// console.log(skillLevel);
-
-
-
-
-        
-        // var skillLevelInput = button.closest("form").querySelector("option[selected=selected]");
-        // var skillLevel = e.target.dataset.skillLevel
-        
-        // var skillLevelInput = button.closest("form").querySelector("input[type=number]");
-        // var skillLevel = skillLevelInput.value;
-        // updateSkillLevel(skillId, skillLevel);
       });
     });
 
+  // delete
     deleteButtons.forEach(function(button) {
       button.addEventListener("click", function(e) {
         e.preventDefault();
-        var skillId = button.dataset.skillId;
+        var skillId = e.target.dataset.skillId;
+        // console.log("delete")
+        // console.log("delete:" + skillId)
         deleteSkill(skillId);
       });
     });
@@ -156,13 +126,13 @@
 
     function deleteSkill(skillId) {
       var request = new XMLHttpRequest();
-      request.open("DELETE", "/user/skill_details/" + skillId, true);
+      request.open("DELETE", "/user_skill/" + skillId + "/edit", true);
       request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       request.onload = function() {
         if (request.status === 200) {
           showModal("Skill deleted successfully.");
           // Optionally, remove the deleted skill from the DOM
-          var skillItem = document.getElementById("skill-" + skillId);
+          var skillItem = document.getElementById("skillId-" + skillId);
           if (skillItem) {
             skillItem.parentNode.removeChild(skillItem);
           }
