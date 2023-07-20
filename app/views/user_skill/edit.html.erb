@@ -33,10 +33,7 @@
             <% if skill_category.id === skill.skill_category_id %>
                 <%= form_with(local: true) do |f| %>
               <tr id="skillId-<%= skill.id %>">
-                <td class="skill name">
-                  <%=skill.skill_name%>
-                  <%= f.hidden_field :id, value: skill.id %>
-                </td>
+                <td class="skill name"><%=skill.skill_name%><%= f.hidden_field :id, value: skill.id %></td>
                 <td class="skill level">
                   <!--,{},id:でidを指定-->
                   <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level),{}, id: "skillLevelSelect_#{skill.id}" %>
@@ -74,6 +71,7 @@
     var modal = document.getElementById("skill-modal");
     var modalMessage = document.getElementById("modal-message");
     var closeModalButton = document.getElementById("close-modal");
+    
 
   // update
     saveButtons.forEach(function(button) {
@@ -84,10 +82,13 @@
         // var skillId = button.dataset.skill_id
         var skillId = e.target.dataset.skillId //OK!!!!!!!
         var skillLevel = document.getElementById("skillLevelSelect_"+skillId).value//OK!!!
+        var skillElem = document.getElementById("skillId-" + skillId)
+        var skillName = skillElem.querySelector(".name").textContent
+        console.log(skillName.textContent)
         console.log(skillId)
         console.log(skillLevel)
         
-        updateSkillLevel(skillId, skillLevel);
+        updateSkillLevel(skillId, skillName, skillLevel);
       });
     });
 
@@ -106,20 +107,16 @@
       modal.style.display = "none";
     });
 
-    function updateSkillLevel(skillId, skillLevel) {
-      
+    function updateSkillLevel(skillId, skillName, skillLevel) {
       var request = new XMLHttpRequest();
       request.open("PUT", "/user_skill/" + skillId + "/edit", true);
       request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       request.onload = function() {
         if (request.status === 200) {
-          showModal("Skill updated successfully.");
+          showModal(skillName + " の習得レベルを保存しました！");
         } else {
-          showModal("An error occurred while updating the skill.");
+          showModal(skillName + " の習得レベルの保存に失敗しました。");
         }
-      };
-      request.onerror = function() {
-        showModal("An error occurred while updating the skill.");
       };
       request.send(JSON.stringify({ skill_level: skillLevel }));
     }
