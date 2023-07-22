@@ -1,8 +1,17 @@
 class UserSkillController < ApplicationController
 skip_before_action :verify_authenticity_token
 
+  def new
+    puts('new!!!')
+    @category = SkillCategory.find(params[:category_id])
+    puts(@category.to_json)
+    @skill = SkillDetail.new
+    
+  end
+
   def create
     puts('create!!!')
+    p params
     puts('end')
   end
   

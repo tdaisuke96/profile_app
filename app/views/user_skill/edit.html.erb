@@ -16,7 +16,7 @@
           <%= skill_category.skill_category %>
           <hr>
         </div>
-        <%= button_to 'スキルを追加する'%>
+        <%= button_to 'スキルを追加する', {controller: "user_skill", action: "new", category_id: skill_category.id}, method: :get%>
       </div>
     
       <table>
@@ -60,7 +60,7 @@
 <div id="skill-modal" style="display: none;">
   <div id="skill-modal-content">
     <p id="modal-message"></p>
-    <button id="close-modal">Close</button>
+    <button id="close-modal">スキル編集ページに戻る</button>
   </div>
 </div>
 
@@ -97,9 +97,12 @@
       button.addEventListener("click", function(e) {
         e.preventDefault();
         var skillId = e.target.dataset.skillId;
-        // console.log("delete")
+        var skillElem = document.getElementById("skillId-" + skillId)
+        var skillName = skillElem.querySelector(".name").textContent
+        console.log("delete");
+        console.log(skillId + " : " + skillName)
         // console.log("delete:" + skillId)
-        deleteSkill(skillId);
+        deleteSkill(skillId, skillName);
       });
     });
 
@@ -121,24 +124,21 @@
       request.send(JSON.stringify({ skill_level: skillLevel }));
     }
 
-    function deleteSkill(skillId) {
+    function deleteSkill(skillId, skillName) {
       var request = new XMLHttpRequest();
       request.open("DELETE", "/user_skill/" + skillId + "/edit", true);
       request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       request.onload = function() {
         if (request.status === 200) {
-          showModal("Skill deleted successfully.");
+          showModal(skillName + " の項目を削除しました！");
           // Optionally, remove the deleted skill from the DOM
           var skillItem = document.getElementById("skillId-" + skillId);
           if (skillItem) {
             skillItem.parentNode.removeChild(skillItem);
           }
         } else {
-          showModal("An error occurred while deleting the skill.");
+          showModal(skillName + " の項目の削除に失敗しました。お手数ですが再度お試しください。");
         }
-      };
-      request.onerror = function() {
-        showModal("An error occurred while deleting the skill.");
       };
       request.send();
     }
