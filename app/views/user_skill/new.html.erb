@@ -1,0 +1,26 @@
+<% provide(:title, "Add Skill Pages") %>
+
+
+
+<div class="title">
+  <%= @category.skill_category%>にスキルを追加
+</div>
+<div class="new-skill">
+<%= form_for @skill, url: { controller: 'user_skill', action: 'create', multipart: true }, html: {class: "skill-form"}, method: :post do |f| %>
+  <div class="skill-name">
+    <%= f.label "習得スキル名" %>
+    <%= f.text_field :skill_name %>
+  </div>
+  <div class="skill-level">
+    <div class="skill-input">
+      <%= f.label "習得レベル" %>
+      <%= f.select :skill_level, options_for_select((0..100).step(10).to_a) %>      
+    </div>
+    <%= f.label "0〜100の間で選択してください", id: "range"%>
+  </div>
+  <div class="add-button">
+    <%= f.submit "追加する" %>
+    
+  </div>
+<% end %>
+</div>

@@ -41,7 +41,12 @@ Rails.application.routes.draw do
   put '/user_skill/:id/edit', to: 'user_skill#update'#未実装
   patch '/user_skill/:id/edit', to: 'user_skill#update'#未実装
   delete '/user_skill/:id/edit', to: 'user_skill#destroy'#未実装
-  
+
+  # post 'user_skill/:category_id', to: 'user_skill#create', as: 'user_skill'
+  # get '/user_skill/:category_id/new', to: 'user_skill#new', as: 'user_skill_new' #as:user_skill_new??  
+
+  post 'user_skill/:id/category/:category_id', to: 'user_skill#create', as: 'user_skill'
+  get '/user_skill/:id/category/:category_id/new', to: 'user_skill#new', as: 'user_skill_new'
   
   get '/signup', to: 'users#new'
   

@@ -1,6 +1,4 @@
 <% provide(:title, "Skill Detail Pages") %>
-<h1>user_skill#edit</h1>
-<h2>user_skill/:id/edit</h2>
 
   <!--スキルカテゴリーを回して、-->
   <!--スキル一覧（該当ユーザーの）も回す→カテゴリーIDが同じ時表示-->
@@ -18,7 +16,7 @@
           <%= skill_category.skill_category %>
           <hr>
         </div>
-        <%= button_to 'スキルを追加する'%>
+        <%= button_to 'スキルを追加する', {controller: "user_skill", action: "new", category_id: skill_category.id, user_id: @user.id }, method: :get%>
       </div>
     
       <table>
@@ -33,31 +31,21 @@
         <tbody>
           <% @user_skills.each do |skill| %>
             <% if skill_category.id === skill.skill_category_id %>
-              <!--<tr>-->
-              <!--  <td><!%= skill.skill_name %></td>-->
-              <!--  <td><!%= form_with(model: @skilldetail, local: true) do |f| %>-->
-              <!--      <!%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>-->
-              <!--      <!% end %></td>-->
-              <!--  <td><!%= submit_tag '習得レベルを保存する' %></td>-->
-              <!--  <td><!%= button_to '習得レベルを保存する-button', user_skill_edit_path(@user), method: :put %></td>-->
-              <!--  <td><!%= button_to 'スキルを削除する', user_skill_edit_path(@user), method: :delete %></td>-->
-              <!--</tr>-->
-              <tr>
-                <%= form_with(model: [ @user_skills], url: { controller: 'user_skill', action: 'update' },method: :put) do |f| %>
-                <td class="skill name">
-                  <%=skill.skill_name%>
-                  <%= f.hidden_field :id, value: skill.id %>
-                </td>
+                <%= form_with(local: true) do |f| %>
+              <tr id="skillId-<%= skill.id %>">
+                <td class="skill name"><%=skill.skill_name%><%= f.hidden_field :id, value: skill.id %></td>
                 <td class="skill level">
-                  <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level) %>
+                  <!--,{},id:でidを指定-->
+                  <%= f.select :skill_level, options_for_select((0..100).step(10).to_a, selected: skill.skill_level),{}, id: "skillLevelSelect_#{skill.id}" %>
                 </td>
                 <td class="skill update-btn">
-                  <%= button_to '習得レベルを保存する' %>
+                  <%= f.submit '習得レベルを保存する',params: { skill: { skill_level: skill.skill_level } }, data: { skill_id: skill.id }%>
+                </td>
+                <!--<!% end %>-->
+                <td class="skill delete-btn">
+                <%= f.submit 'スキルを削除する', data: { skill_id: skill.id } %>
                 </td>
                 <% end %>
-                <td class="skill delete-btn">
-                <%= button_to 'スキルを削除する',user_skill_edit_path(skill.id), method: :delete %>
-                </td>
               </tr>
             <% end %>
           <% end %>
@@ -68,3 +56,97 @@
 <% end %>
 </div>
 </main>
+
+<div id="skill-modal" style="display: none;">
+  <div id="skill-modal-content">
+    <p id="modal-message"></p>
+    <button id="close-modal">スキル編集ページに戻る</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var saveButtons = document.querySelectorAll(".update-btn");//edit
+    var deleteButtons = document.querySelectorAll(".delete-btn");
+    var modal = document.getElementById("skill-modal");
+    var modalMessage = document.getElementById("modal-message");
+    var closeModalButton = document.getElementById("close-modal");
+    
+
+  // update
+    saveButtons.forEach(function(button) {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        console.log("save!!!!")
+        // skillId, skillLevelの取得
+        // var skillId = button.dataset.skill_id
+        var skillId = e.target.dataset.skillId //OK!!!!!!!
+        var skillLevel = document.getElementById("skillLevelSelect_"+skillId).value//OK!!!
+        var skillElem = document.getElementById("skillId-" + skillId)
+        var skillName = skillElem.querySelector(".name").textContent
+        console.log(skillName.textContent)
+        console.log(skillId)
+        console.log(skillLevel)
+        
+        updateSkillLevel(skillId, skillName, skillLevel);
+      });
+    });
+
+  // delete
+    deleteButtons.forEach(function(button) {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        var skillId = e.target.dataset.skillId;
+        var skillElem = document.getElementById("skillId-" + skillId)
+        var skillName = skillElem.querySelector(".name").textContent
+        console.log("delete");
+        console.log(skillId + " : " + skillName)
+        // console.log("delete:" + skillId)
+        deleteSkill(skillId, skillName);
+      });
+    });
+
+    closeModalButton.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    function updateSkillLevel(skillId, skillName, skillLevel) {
+      var request = new XMLHttpRequest();
+      request.open("PUT", "/user_skill/" + skillId + "/edit", true);
+      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      request.onload = function() {
+        if (request.status === 200) {
+          showModal(skillName + " の習得レベルを保存しました！");
+        } else {
+          showModal(skillName + " の習得レベルの保存に失敗しました。");
+        }
+      };
+      request.send(JSON.stringify({ skill_level: skillLevel }));
+    }
+
+    function deleteSkill(skillId, skillName) {
+      var request = new XMLHttpRequest();
+      request.open("DELETE", "/user_skill/" + skillId + "/edit", true);
+      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      request.onload = function() {
+        if (request.status === 200) {
+          showModal(skillName + " の項目を削除しました！");
+          // Optionally, remove the deleted skill from the DOM
+          var skillItem = document.getElementById("skillId-" + skillId);
+          if (skillItem) {
+            skillItem.parentNode.removeChild(skillItem);
+          }
+        } else {
+          showModal(skillName + " の項目の削除に失敗しました。お手数ですが再度お試しください。");
+        }
+      };
+      request.send();
+    }
+
+    function showModal(message) {
+      modalMessage.textContent = message;
+      modal.style.display = "block";
+      console.log("showModal!!!!")
+    }
+  });
+</script>

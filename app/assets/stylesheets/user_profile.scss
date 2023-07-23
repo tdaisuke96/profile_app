@@ -22,7 +22,7 @@ h1 {
     gap: 48px;
 }
 
-lavel {
+label {
     color: var(--text-secondary, rgba(0, 0, 0, 0.54));
     font-size: 12px;
     font-family: Roboto;
@@ -46,7 +46,6 @@ lavel {
     border-bottom: 1px solid;
     resize: none;
     outline: none;
-    padding: 0.5rem;
 }
 
 .file-upload {
