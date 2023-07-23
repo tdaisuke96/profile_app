@@ -12,7 +12,18 @@ skip_before_action :verify_authenticity_token
   def create
     puts('create!!!')
     p params
+    # @skill = SkillDetail.new
     puts('end')
+
+    @category = SkillCategory.find(params[:category_id])
+    @user = User.find(params[:id])
+    # skill_categoryで設定したhas_manyの値をbuild
+    @skill = @category.skill_details.build(skill_params)
+    puts(@skill.to_json)
+    # skillに紐づくuser指定
+    @skill.user = @user
+    puts(@skill.to_json)
+    @skill.save
   end
   
   def show
@@ -76,6 +87,6 @@ skip_before_action :verify_authenticity_token
   
   private 
     def skill_params
-      params.require(:skill_detail).permit(:skill_level, :skill_name, :id)
+      params.require(:skill_detail).permit(:skill_level, :skill_name, :id, :category_id)
     end
 end

@@ -16,7 +16,7 @@
           <%= skill_category.skill_category %>
           <hr>
         </div>
-        <%= button_to 'スキルを追加する', {controller: "user_skill", action: "new", category_id: skill_category.id}, method: :get%>
+        <%= button_to 'スキルを追加する', {controller: "user_skill", action: "new", category_id: skill_category.id, user_id: @user.id }, method: :get%>
       </div>
     
       <table>

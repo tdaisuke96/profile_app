@@ -32,7 +32,6 @@ main {
   gap: 32px;
   flex: 1 0 0;
   width: 880px;
-  height: 356px;
 }
 
 // スキル追加ボタンはform扱いのため、ネストが深くなりflexが無効化されている
@@ -314,9 +313,14 @@ option {
   width: 480px;
   height: 36px;
   align-self: stretch;
+  
+  background-clip: padding-box;
+  border: none;
+  border-bottom: solid 1px gray;
+  outline: none;
 }
 
-/////////
+//  level  //
 .skill-level {
   display: flex;
   // width: 480px;
@@ -324,21 +328,33 @@ option {
   flex-direction: column;
   gap: 3px;
   align-self: stretch;
+
 }
 
 .skill-input {
   display: flex;
   flex-direction: column;
   gap: 0px;
-  // height: 48px;
+
 }
 
 .skill-input select {
   width: 480px;
-  height: 36px;
+  padding: 7.75px 0px;
+  margin-right: 0;
+  // margin-right: auto;
   align-self: stretch;
-  // border: none;
-  align-items: center;
+  
+  color: var(--common-black, #000);
+  font-feature-settings: 'clig' off, 'liga' off;
+  // font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px; /* 118.75% */
+  letter-spacing: 0.15px;
+  border: none;
+  outline: none;
 }
 
 #range {
