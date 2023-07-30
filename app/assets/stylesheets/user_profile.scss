@@ -3,91 +3,91 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 h1 {
-    color: rgba(0, 0, 0, 0.75);
-    text-align: center;
-    font-size: 36px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 133.4%;
-    margin-bottom: 80px;
+  color: rgba(0, 0, 0, 0.75);
+  text-align: center;
+  font-size: 36px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 133.4%;
+  margin: 200px 0 80px;
 }
 
 .profile-form {
-    display: flex;
-    width: 960px;
-    margin: 0 auto;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
+  display: flex;
+  width: 960px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
 }
 
 label {
-    color: var(--text-secondary, rgba(0, 0, 0, 0.54));
-    font-size: 12px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 12px;
-    letter-spacing: 0.15px;
+  color: var(--text-secondary, rgba(0, 0, 0, 0.54));
+  font-size: 12px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.15px;
 }
 
 .profile-edit {
-    display: flex;
-    width: 480px;
-    height: 145px;
-    flex-direction: column;
-    // align-items: flex-start;
-    gap: 3px;
+  display: flex;
+  width: 480px;
+  height: 145px;
+  flex-direction: column;
+  // align-items: flex-start;
+  gap: 3px;
 }
 
 .profile-edit textarea {
-    border: none;
-    border-bottom: 1px solid;
-    resize: none;
-    outline: none;
+  border: none;
+  border-bottom: 1px solid;
+  resize: none;
+  outline: none;
 }
 
 .file-upload {
-    display: flex;
-    width: 480px;
-    height: 48px;
-    padding-right: 0px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 4px;
-    flex: 1 0 0;
+  display: flex;
+  width: 480px;
+  height: 48px;
+  padding-right: 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1 0 0;
 }
 
 .upload-button  {
-    display: flex;
-    padding: 8px 24px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.10);
-    border: none;
-    color: rgba(0, 0, 0, 0.75);
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  display: flex;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.10);
+  border: none;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .profile-form input {
-    display: flex;
-    padding: 16px 80px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    background-color: var(--primary-color, #1B5678);
-    border: none;
-    color: #FFF;
-    font-size: 18px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  display: flex;
+  padding: 16px 80px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: var(--primary-color, #1B5678);
+  border: none;
+  color: #FFF;
+  font-size: 18px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

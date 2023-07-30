@@ -5,7 +5,18 @@ html {
   height: 1024px;
 }
 body {
-  padding-top: 60px;
+  // padding-top: 80px;
+  // display: flex;
+  // gap: 80px;
+  
+}
+
+.main {
+  // main部分のCSS
+  display: flex;
+  padding: 200px 0px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 #logo {
@@ -25,4 +36,70 @@ body {
 
 .navbar {
   background-color: #1B5678;
+  height: 120px;
+}
+
+#skill-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.60);
+}
+
+#skill-modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+
+  display: flex;
+  width: 640px;
+  height: 240px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-shrink: 0;
+
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  
+}
+
+#close-modal {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: solid 1px #1B5678;
+  background: var(--primary-color, #1B5678);
+  
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+// profile page css
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 120px;
+  align-self: stretch;
 }

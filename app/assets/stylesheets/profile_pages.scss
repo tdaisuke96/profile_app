@@ -1,3 +1,142 @@
-// Place all the styles related to the ProfilePages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 120px;
+  align-self: stretch;
+}
+
+.profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+  width: 960px;
+}
+
+.avatar img {
+  width: 360px;
+  height: 360px;
+  border-radius: 360px;
+  // background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+}
+
+.profile-content {
+  display: flex;
+  width: 520px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+    
+}
+
+.profile-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+ p {
+  
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 0px;
+}
+
+.profile-title hr {
+  width: 240px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.50);
+  margin: 0px!important;
+  padding: 0px!important;
+  border: none;
+}
+
+.profile-text {
+  align-self: stretch;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}
+
+.profile-content input {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  
+  border-radius: 4px;
+  border: solid 1px #1B5678;
+  background: var(--primary-color, #1B5678);
+  
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  align-self: stretch;
+}
+
+.skill-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  
+  // height: 58px;
+}
+
+.skill-title hr {
+  width: 400px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.50);
+  margin: 0px!important;
+  padding: 0px!important;
+  border: none;
+}
+
+.skill-title input {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center; 
+  
+  border-radius: 4px;
+  background: var(--primary-color, #1B5678);
+
+  border: solid 1px #1B5678;
+
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.skill-chart {
+    
+}

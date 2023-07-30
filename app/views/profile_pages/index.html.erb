@@ -2,24 +2,12 @@
 
 <% provide(:title, "Profile Pages") %>
 
-<div>
-  <h3>自己紹介</h3>
-  <p><%= @user.self_introduction %></p>
-  <%= button_to "自己紹介文編集", { controller: 'user_profile', action: 'index' }, { method: :get } %>
-</div>
+<% if logged_in? %>
+  <!--ログイン時は/showにリダイレクトさせる（ログイン画面から経由させるかは要検討）-->
+  <%= render 'tasks/logged_in' %>
+<% else %>
+  <!--未ログイン時はtopをレンダリング？（ログイン有無でルーティングが異なることを忘れずに）-->
+  <%= render 'tasks/not_logged_in' %>
+<% end %>
 
-<div>
-  <h3>スキルチャート</h3>
-
-  <ul>
-    <% @user_skills.each do |skill| %>
-    <li><%= skill.skill_name %></li>
-    <% end %>
-  </ul>
-  <%= button_to "スキル編集", { controller: 'user_skill', action: 'index' }, { method: :get } %>
-  
-
-</div>
-
-<h1>ProfilePages#index</h1>
 
