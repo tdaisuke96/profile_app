@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   # delete '/user_skill/:id', to: 'user_skill#destroy'#未実装
   
   get '/user_skill/:id/edit', to: 'user_skill#edit', as: 'user_skill_edit'#未実装
-  post '/user_skill/:id/edit', to: 'user_skill#create'#未実装
+  # post '/user_skill/:id/edit', to: 'user_skill#create'#未実装
   put '/user_skill/:id/edit', to: 'user_skill#update'#未実装
   patch '/user_skill/:id/edit', to: 'user_skill#update'#未実装
   delete '/user_skill/:id/edit', to: 'user_skill#destroy'#未実装

@@ -6,7 +6,7 @@
   <!--※複数スキル⇨スキル1：点数と更新、削除ボタン（それぞれ一つずつ）-->
 
 
-<main>
+<div class="main">
 <div class="user-skills">
 <% @skill_categories.each do |skill_category| %>
   <div class="skill-category">
@@ -22,8 +22,8 @@
       <table>
         <thead>
           <tr>
-            <th>スキル</th>
-            <th>スキルレベル</th>
+            <th>習得スキル</th>
+            <th>習得レベル</th>
             <th></th>
             <th></th>
           </tr>
@@ -55,98 +55,5 @@
   </div>
 <% end %>
 </div>
-</main>
-
-<div id="skill-modal" style="display: none;">
-  <div id="skill-modal-content">
-    <p id="modal-message"></p>
-    <button id="close-modal">スキル編集ページに戻る</button>
-  </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var saveButtons = document.querySelectorAll(".update-btn");//edit
-    var deleteButtons = document.querySelectorAll(".delete-btn");
-    var modal = document.getElementById("skill-modal");
-    var modalMessage = document.getElementById("modal-message");
-    var closeModalButton = document.getElementById("close-modal");
-    
-
-  // update
-    saveButtons.forEach(function(button) {
-      button.addEventListener("click", function(e) {
-        e.preventDefault();
-        console.log("save!!!!")
-        // skillId, skillLevelの取得
-        // var skillId = button.dataset.skill_id
-        var skillId = e.target.dataset.skillId //OK!!!!!!!
-        var skillLevel = document.getElementById("skillLevelSelect_"+skillId).value//OK!!!
-        var skillElem = document.getElementById("skillId-" + skillId)
-        var skillName = skillElem.querySelector(".name").textContent
-        console.log(skillName.textContent)
-        console.log(skillId)
-        console.log(skillLevel)
-        
-        updateSkillLevel(skillId, skillName, skillLevel);
-      });
-    });
-
-  // delete
-    deleteButtons.forEach(function(button) {
-      button.addEventListener("click", function(e) {
-        e.preventDefault();
-        var skillId = e.target.dataset.skillId;
-        var skillElem = document.getElementById("skillId-" + skillId)
-        var skillName = skillElem.querySelector(".name").textContent
-        console.log("delete");
-        console.log(skillId + " : " + skillName)
-        // console.log("delete:" + skillId)
-        deleteSkill(skillId, skillName);
-      });
-    });
-
-    closeModalButton.addEventListener("click", function() {
-      modal.style.display = "none";
-    });
-
-    function updateSkillLevel(skillId, skillName, skillLevel) {
-      var request = new XMLHttpRequest();
-      request.open("PUT", "/user_skill/" + skillId + "/edit", true);
-      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      request.onload = function() {
-        if (request.status === 200) {
-          showModal(skillName + " の習得レベルを保存しました！");
-        } else {
-          showModal(skillName + " の習得レベルの保存に失敗しました。");
-        }
-      };
-      request.send(JSON.stringify({ skill_level: skillLevel }));
-    }
-
-    function deleteSkill(skillId, skillName) {
-      var request = new XMLHttpRequest();
-      request.open("DELETE", "/user_skill/" + skillId + "/edit", true);
-      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      request.onload = function() {
-        if (request.status === 200) {
-          showModal(skillName + " の項目を削除しました！");
-          // Optionally, remove the deleted skill from the DOM
-          var skillItem = document.getElementById("skillId-" + skillId);
-          if (skillItem) {
-            skillItem.parentNode.removeChild(skillItem);
-          }
-        } else {
-          showModal(skillName + " の項目の削除に失敗しました。お手数ですが再度お試しください。");
-        }
-      };
-      request.send();
-    }
-
-    function showModal(message) {
-      modalMessage.textContent = message;
-      modal.style.display = "block";
-      console.log("showModal!!!!")
-    }
-  });
-</script>

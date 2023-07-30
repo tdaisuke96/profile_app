@@ -2,6 +2,7 @@ class UserSkillController < ApplicationController
 skip_before_action :verify_authenticity_token
 
   def new
+    @user = User.find(params[:id])
     puts('new!!!')
     @category = SkillCategory.find(params[:category_id])
     puts(@category.to_json)
@@ -11,19 +12,39 @@ skip_before_action :verify_authenticity_token
 
   def create
     puts('create!!!')
-    p params
-    # @skill = SkillDetail.new
-    puts('end')
-
+    # p params
+    # # @skill = SkillDetail.new
+    # puts('end')
+    puts('category')
     @category = SkillCategory.find(params[:category_id])
+    puts(@category.id)
+    puts('user')
     @user = User.find(params[:id])
-    # skill_categoryで設定したhas_manyの値をbuild
-    @skill = @category.skill_details.build(skill_params)
-    puts(@skill.to_json)
-    # skillに紐づくuser指定
+    puts(@user.id)
+    
+    puts("skill_name & skill_level")
+    # puts(params[:skill_name, :skill_level])
+    # puts(params[:skill_level])
+
+    update_params = {}
+    update_params[:skill_name] = params[:skill_name]
+    update_params[:skill_level] = params[:skill_level]
+    @skill = @category.skill_details.build(update_params)
     @skill.user = @user
-    puts(@skill.to_json)
     @skill.save
+
+
+
+
+    # # skill_categoryで設定したhas_manyの値をbuild
+    # @skill = @category.skill_details.build(skill_params)
+    # puts(@skill.to_json)
+    # # skillに紐づくuser指定
+    # @skill.user = @user
+    # puts(@skill.to_json)
+    # @skill.save
+    render json: { success: true }
+
   end
   
   def show
@@ -45,6 +66,12 @@ skip_before_action :verify_authenticity_token
     
   end
   def edit
+    puts("edit!!!!!!!!!!!!!")
+    p params
+    puts(params[:modal])
+    if params[:modal]
+      redirect_to(user_skill_edit)
+    end
     @user = User.find(params[:id])
     #@user_id = User.find(1)
     
@@ -65,7 +92,10 @@ skip_before_action :verify_authenticity_token
     # puts(@skill)
     # 下記元々
     # @skill = SkillDetail.find(skill_params[:id])
-    @skill = SkillDetail.find(params[:id])
+    
+    # **:idでURLからID取得も可能！！
+    
+    @skill = SkillDetail.find(params[:skill_id])
     puts(@skill.to_json)
     # puts(skill_params[:skill_level])
     # puts(params[:id].to_json)
@@ -76,7 +106,7 @@ skip_before_action :verify_authenticity_token
   end
   
   def destroy
-    @skill =SkillDetail.find(params[:id])
+    @skill =SkillDetail.find(params[:skill_id])
     puts('destroy!!!!!!!!')
     puts(@skill.to_json)
     puts('------------')

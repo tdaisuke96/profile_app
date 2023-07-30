@@ -3,7 +3,7 @@
 
 
 <div class="title">
-  <%= @category.skill_category%>にスキルを追加
+  <%= @category.skill_category %>にスキルを追加
 </div>
 <div class="new-skill">
 <%= form_for @skill, url: { controller: 'user_skill', action: 'create', multipart: true }, html: {class: "skill-form"}, method: :post do |f| %>
@@ -20,7 +20,8 @@
   </div>
   <div class="add-button">
     <%= f.submit "追加する" %>
-    
   </div>
 <% end %>
 </div>
+<input type="hidden" id="categoryId" name="categoryId" value="<%= @category.id %>"/>
+<input type="hidden" id="categoryName" name="categoryName" value="<%= @category.skill_category %>"/>

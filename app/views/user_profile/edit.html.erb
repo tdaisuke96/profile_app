@@ -1,5 +1,6 @@
 <% provide(:title, "Edit Profile Pages") %>
 
+<div class="profile-wrapper">
 <h1>自己紹介を編集する</h1>
 
 <%= form_for @user, url: { controller: 'user_profile', action: 'update', multipart: true}, html: {class: 'profile-form'}, method: :put do |u| %>
@@ -20,4 +21,4 @@
     <%= button_to '自己紹介を確定する' %>
   </div>
 <% end %>
-
+</div>
