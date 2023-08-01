@@ -12,6 +12,7 @@ skip_before_action :verify_authenticity_token
 
   def create
     puts('create!!!')
+    
     # p params
     # # @skill = SkillDetail.new
     # puts('end')
@@ -26,10 +27,11 @@ skip_before_action :verify_authenticity_token
     # puts(params[:skill_name, :skill_level])
     # puts(params[:skill_level])
 
-    update_params = {}
-    update_params[:skill_name] = params[:skill_name]
-    update_params[:skill_level] = params[:skill_level]
-    @skill = @category.skill_details.build(update_params)
+    create_params = {}
+    create_params[:id] = SkillDetail.pluck(:id).max + 1
+    create_params[:skill_name] = params[:skill_name]
+    create_params[:skill_level] = params[:skill_level]
+    @skill = @category.skill_details.build(create_params)
     @skill.user = @user
     @skill.save
 
