@@ -28,6 +28,8 @@
       </div>
       
       <div class="skill-chart">
+        <%= column_chart @data %>
+
         <ul>
           <% @user_skills.each do |skill| %>
             <li><%= skill.skill_name %></li>
