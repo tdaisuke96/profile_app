@@ -61,6 +61,7 @@ GEM
     ansi (1.5.0)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
+    bcrypt (3.1.12)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -89,6 +90,11 @@ GEM
     formatador (1.1.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     guard (2.16.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -130,6 +136,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     msgpack (1.7.1)
+    multi_json (1.15.0)
     nenv (0.3.0)
     net-imap (0.3.4)
       date
@@ -195,6 +202,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.8.0)
+    request_store (1.5.1)
+      rack (>= 1.4)
     rexml (3.2.5)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
@@ -259,11 +268,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (= 3.1.12)
   bootsnap (>= 1.4.2)
   bootstrap-sass (= 3.4.1)
   byebug
   capybara (>= 2.15)
   chartkick
+  gon
   guard (= 2.16.2)
   guard-minitest (= 2.4.6)
   jbuilder (~> 2.7)

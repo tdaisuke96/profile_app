@@ -12,7 +12,6 @@
           <hr>
         </div>
         <div class="profile-text"><%= @user.self_introduction %></div>
-        <!--%= button_to "自己紹介文を編集する", { controller: 'user_profile', action: 'show', id: @user.id }, method: :get %>-->
         <%= button_to "自己紹介文を編集する", user_profile_edit_path(@user), method: :get  %>
       </div>
     </div>
@@ -21,24 +20,55 @@
       <div class="skill-title">
         <div class="title-text">
           <p>スキルチャート</p>
-          <!--%= button_to "スキルを編集する", { controller: 'user_skill', action: 'show', id: @user.id }, method: :get %>-->
           <hr>
         </div>
         <%= button_to "スキルを編集する", user_skill_edit_path(@user), method: :get %>
       </div>
-      
-      <div class="skill-chart">
-        <%= column_chart @data %>
 
-        <ul>
-          <% @user_skills.each do |skill| %>
-            <li><%= skill.skill_name %></li>
-          <% end %>
-        </ul>
+      <div class="skill-chart">
+        <canvas id="skillChart"></canvas>　
       </div>
-    
     </div>
   </div>
 </div>
 
-
+<script>
+  var ctx = document.getElementById("skillChart");
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      datasets: [
+        {
+          label: 'バックエンド' ,
+          backgroundColor: 'rgba(255,0,0,0.4)',
+          borderColor: 'rgba(255,0,0,1)',
+          //data: August: "60.0",July: "20.0",June: "100.0"
+          data: gon.backend_data
+        },
+        {
+          label: 'フロントエンド',
+          backgroundColor: 'rgba(255,130,0,0.4)',
+          borderColor: 'rgba(255,130,0,1)',
+          data: gon.frontend_data
+        },
+        {
+          label: 'インフラ',
+          backgroundColor: 'rgba(255,255,0,0.4)',
+          borderColor: 'rgba(255,255,0,1)',
+          data: gon.infra_data
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+          ticks: {
+            stepSize: 20
+          }
+        }
+      }      
+    }
+  });
+</script>

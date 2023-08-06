@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_03_074347) do
+ActiveRecord::Schema.define(version: 2023_08_05_104008) do
 
   create_table "skill_categories", force: :cascade do |t|
     t.string "skill_category"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2023_06_03_074347) do
     t.binary "profile_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
   end
 
   add_foreign_key "skill_details", "skill_categories"

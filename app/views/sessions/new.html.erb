@@ -1,0 +1,20 @@
+<% provide(:title, "Login Pages") %>
+
+<div class="main">
+  <div class="login">
+    <div class="login-title">ログイン</div>
+      <%= form_for(:session, url: login_path, html: { class: 'login-form'}) do |f| %>
+      <div class="email">
+        <%= f.label "メールアドレス" %>
+        <%= f.email_field :email %>
+      </div>
+      <div class="password">
+        <%= f.label "パスワード" %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="login-btn">
+        <%= f.submit "ログインする" %>
+      </div>
+      <% end %>
+  </div>
+</div>
