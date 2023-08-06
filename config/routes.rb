@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
   #root "profile_pages#index" #未ログインページ要実装
   root 'profile_pages#show'
   
@@ -49,6 +50,11 @@ Rails.application.routes.draw do
   get '/user_skill/:id/category/:category_id/new', to: 'user_skill#new', as: 'user_skill_new'
   
   get '/signup', to: 'users#new'
+  
+  # session用のルーティング
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/login', to: 'sessions#destroy'
   
   #user_profileからusersモデルを取得できるようにコントローラーで処理追加する
 

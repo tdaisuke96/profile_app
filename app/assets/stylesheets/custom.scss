@@ -1,43 +1,170 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-html {
-  width: 1440px;
-  height: 1024px;
+/*
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
 }
+
+body {
+  line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+display:block;
+}
+
+nav ul {
+  list-style:none;
+}
+
+blockquote, q {
+  quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content:'';
+  content:none;
+}
+
+a {
+  margin:0;
+  padding:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+  background-color:#ff9;
+  color:#000;
+  text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+  background-color:#ff9;
+  color:#000;
+  font-style:italic;
+  font-weight:bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom:1px dotted;
+  cursor:help;
+}
+
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+  display:block;
+  height:1px;
+  border:0;
+  border-top:1px solid #cccccc;
+  margin:1em 0;
+  padding:0;
+}
+
+input, select {
+  vertical-align:middle;
+}
+
+// 以下メインCSS
+html {
+  // width: 1440px;
+  // height: 1024px;
+}
+
 body {
   // padding-top: 80px;
   // display: flex;
   // gap: 80px;
-  
+  // margin: 0px;
+  width: 1440px;
+  height: 1024px;
 }
 
 .main {
   // main部分のCSS
   display: flex;
-  padding: 200px 0px;
+  padding: 80px 0px;
   justify-content: center;
   align-items: flex-start;
 }
 
+header {
+  display: flex;
+  width: 1440px;
+  height: 120px;
+  padding: 0px 40px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--primary-color, #1B5678);
+}
+
 #logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: #fff;
-  letter-spacing: -1px;
-  padding-top: 9px;
-  font-weight: bold;
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 #logo:hover {
-  color: #fff;
+  // color: #fff;
   text-decoration: none;
 }
 
-.navbar {
-  background-color: #1B5678;
-  height: 120px;
+header input {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--white, #FFF);
+  border: solid 1px #FFF;
 }
+
+// .navbar {
+//   background-color: #1B5678;
+//   height: 120px;
+// }
 
 #skill-modal {
   position: fixed;
@@ -96,10 +223,30 @@ body {
 }
 
 // profile page css
-.wrapper {
+// .wrapper {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   gap: 120px;
+//   align-self: stretch;
+// }
+
+footer {
   display: flex;
+  width: 1440px;
+  height: 40px;
+  padding: 0px 40px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--primary-color, #1B5678);
+  // text-align: center;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 120px;
-  align-self: stretch;
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
 }

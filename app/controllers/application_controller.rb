@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
-
-  def hello
-    render html: "hello world"
+  include SessionsHelper
+  
+  private
+  def logged_in_user
+    unless logged_in?
+      redirect_to login_path
+    end
   end
 end

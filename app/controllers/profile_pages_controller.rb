@@ -1,4 +1,5 @@
 class ProfilePagesController < ApplicationController
+  before_action :logged_in_user, only:[:show]
   #このコントローラーでは表示だけ行う
   #自己紹介をモデルから取ってくる、スキルを持ってくる
   #チャート表示、自己紹介文、画像の表示
@@ -40,21 +41,33 @@ class ProfilePagesController < ApplicationController
     infra_category_id = SkillCategory.find_by(skill_category: 'インフラ').id
 
     # スキルカテゴリーごとの各月の平均スキルレベルを計算
-    backend_data = calculate_average_skill_level(backend_category_id, start_date, end_date)
-    frontend_data = calculate_average_skill_level(frontend_category_id, start_date, end_date)
-    infra_data = calculate_average_skill_level(infra_category_id, start_date, end_date)
+    @backend_data = calculate_average_skill_level(backend_category_id, start_date, end_date)
+    @frontend_data = calculate_average_skill_level(frontend_category_id, start_date, end_date)
+    @infra_data = calculate_average_skill_level(infra_category_id, start_date, end_date)
+
+    gon.backend_data = @backend_data
+    gon.frontend_data = @frontend_data
+    gon.infra_data = @infra_data
 
     # ビューに渡すデータをまとめる
     @data = [
-      { name: 'バックエンド', data: backend_data },
-      { name: 'フロントエンド', data: frontend_data },
-      { name: 'インフラ', data: infra_data }
+      { name: 'バックエンド', data: @backend_data },
+      { name: 'フロントエンド', data: @frontend_data },
+      { name: 'インフラ', data: @infra_data }
     ]
   end
 
   # private
 
   # スキルカテゴリーごとの各月の平均スキルレベルを計算するメソッド
+  # 　＊＊＊下記仕様に要変更　＊＊＊
+    # 各カテゴリのスキル(ユーザー)ごと（例：BE全てのスキル）に下記を実行
+    # 1.過去３ヶ月分のデータを取得
+    # 2.月毎に最終更新日を取得、その際のレベルを取得
+    # 3.上記２を月毎に加算
+    # 4.先々月のBE合計値、先月のBE合計値、今月のBE合計値のデータができる
+    # ＊同様に他カテゴリも行う
+    
   def calculate_average_skill_level(category_id, start_date, end_date)
     data = {}
     (start_date.to_date..end_date.to_date).each do |date|
