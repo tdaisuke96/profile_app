@@ -2,12 +2,78 @@
 
 <% provide(:title, "Profile Pages") %>
 
-<% if logged_in? %>
-  <!--ログイン画面でログインしたら、そのままshowにリダイレクトさせる（ログイン有無でルーティングが異なることを忘れずに）-->
-  <%= render 'tasks/logged_in' %>
-<% else %>
-  <!--未ログイン時は本画面に遷移させ、そのままここで未ログイン表示-->
-  <%= render 'tasks/not_logged_in' %>
-<% end %>
+<!--未ログイン時は本画面に遷移させ、そのままここで未ログイン表示-->
+<div class="main">
+  <div class="wrapper">
+    <div class="profile">
+      <div class="avatar">
+        <div class="no-img"></div>
+      </div>
+      
+      <div class="profile-content">
+        <div class="profile-title">
+          <p>自己紹介</p>
+          <hr>
+        </div>
+        <div class="profile-text" style="color:rgba(255, 0, 0, 0.75);">ログインして、自己紹介文と画像を登録しましょう！</div>
+      </div>
+    </div>
+  
+    <div class="skills">
+      <div class="skill-title">
+        <div class="title-text">
+          <p>スキルチャート</p>
+          <hr>
+        </div>
+      </div>
+
+      <div class="skill-chart">
+        <canvas id="skillChart"></canvas>　
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ctx = document.getElementById("skillChart");
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      datasets: [
+        {
+          label: 'バックエンド' ,
+          backgroundColor: 'rgba(255,0,0,0.4)',
+          borderColor: 'rgba(255,0,0,1)',
+          //data: August: "60.0",July: "20.0",June: "100.0"
+          data: {June: '0', July: '0', August: '0'}
+        },
+        {
+          label: 'フロントエンド',
+          backgroundColor: 'rgba(255,130,0,0.4)',
+          borderColor: 'rgba(255,130,0,1)',
+          data: {June: '0', July: '0', August: '0'}
+        },
+        {
+          label: 'インフラ',
+          backgroundColor: 'rgba(255,255,0,0.4)',
+          borderColor: 'rgba(255,255,0,1)',
+          data: {June: '0', July: '0', August: '0'}
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+          ticks: {
+            stepSize: 20
+          }
+        }
+      }      
+    }
+  });
+</script>
+
 
 

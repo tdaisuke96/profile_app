@@ -24,7 +24,7 @@ class UserProfileController < ApplicationController
       puts('profile image not null!!!!')
     end
     @user.update(update_params)
-    redirect_to root_path(@user)
+    redirect_to(controller: 'profile_pages', action: 'show', id: @user.id)
   end
   
   private

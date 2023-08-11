@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
+  # get 'sessions/new'
   #root "profile_pages#index" #未ログインページ要実装
-  root 'profile_pages#show'
+  root 'profile_pages#index'
   
   #profile_pages : ユーザーごとのトップページ
-    #get : show
+    #get : show 
     #loginした時の処理
     # pfofile_imageとしてユーザーごとの画像URLを生成
+  # get '/top', to: 'profile_pages#index', as: 'profile_pages'
   get '/profile_pages/:id', to: 'profile_pages#show'#未実装
   get '/profile_pages/:id/profile_image', to: 'profile_pages#send_image', as: 'profile_image'
 
