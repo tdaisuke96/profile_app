@@ -72,11 +72,11 @@ class UserSkillController < ApplicationController
     puts("edit!!!!!!!!!!!!!")
     p params
     puts(params[:modal])
-    if params[:modal]
-      redirect_to(user_skill_edit)
-    end
+    # 下記if文不要？
+    # if params[:modal]
+    #   redirect_to(user_skill_edit)
+    # end
     @user = User.find(params[:id])
-    #@user_id = User.find(1)
     
     #一��的にスキルだけ格納
     #カテゴリごとに配列に格納できるように後で修正

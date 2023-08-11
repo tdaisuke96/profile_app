@@ -16,10 +16,12 @@
 
   <body>
     <header>
-      <%= link_to "My Portfolio", root_path, id: "logo" %>
+
       <% if logged_in? %>
+        <%= link_to "My Portfolio",{ controller: "profile_pages", action: "show", id: @user.id}, id: "logo" %>
         <%= button_to "ログアウト", login_path, method: :delete %>
       <% else %>
+        <%= link_to "My Portfolio", root_path, id: "logo" %>
         <%= button_to "ログイン", login_path, method: :get %>        
       <% end %>
     </header>

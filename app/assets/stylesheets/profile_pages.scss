@@ -20,6 +20,13 @@
   // background: url(<path-to-image>), lightgray 50% / cover no-repeat;
 }
 
+.no-img {
+  width: 360px;
+  height: 360px;
+  border-radius: 360px;
+  background: #C4C4C4;
+}
+
 .profile-content {
   display: flex;
   width: 520px;

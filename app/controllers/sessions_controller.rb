@@ -5,11 +5,13 @@ class SessionsController < ApplicationController
   
   def create
     puts("----session create----")
-    user = User.find_by(email: params[:session][:email].downcase)
+    @user = User.find_by(email: params[:session][:email].downcase)
     
-    if user && user.authenticate(params[:session][:password])
-      log_in user
-      redirect_to root_url
+    if @user && @user.authenticate(params[:session][:password])
+      log_in @user
+      puts("log-------------")
+      # puts(@user.to_json)
+      redirect_to(controller: 'profile_pages', action: 'show', id: @user.id)
     else
       message = "ログインに失敗しました。メールアドレスまたはパスワードが間違っています。"
       flash[:warning] = message
