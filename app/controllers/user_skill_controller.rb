@@ -80,7 +80,7 @@ class UserSkillController < ApplicationController
     
     #一��的にスキルだけ格納
     #カテゴリごとに配列に格納できるように後で修正
-    @user_skills = SkillDetail.where(user_id:params[:id])
+    @user_skills = SkillDetail.where(user_id: params[:id])
     @skill_categories = SkillCategory.all
   end
   
