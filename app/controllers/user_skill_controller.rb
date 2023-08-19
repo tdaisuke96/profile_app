@@ -34,9 +34,14 @@ class UserSkillController < ApplicationController
     create_params[:skill_level] = params[:skill_level]
     @skill = @category.skill_details.build(create_params)
     @skill.user = @user
-    @skill.save
-    add_skill_history
     
+    if @skill.save
+      add_skill_history
+      render json: { success: true }
+    else
+      render json: { success: false }
+      render :new
+    end
 
 
 
@@ -48,7 +53,7 @@ class UserSkillController < ApplicationController
     # @skill.user = @user
     # puts(@skill.to_json)
     # @skill.save
-    render json: { success: true }
+    # render json: { success: true }
 
   end
   
