@@ -3,7 +3,11 @@
   <div class="wrapper">
     <div class="profile">
       <div class="avatar">
-        <%= image_tag profile_image_path(@user) %>
+        <% unless @user.profile_image.nil? %>
+          <%= image_tag profile_image_path(@user) %>
+        <% else %>
+          <div class="no-img"></div>
+        <% end %>
       </div>
       
       <div class="profile-content">
@@ -33,7 +37,7 @@
 </div>
 
 <script>
-  console.log(gon.backend_data);
+  // console.log(gon.backend_data);
   var ctx = document.getElementById("skillChart");
   var myChart = new Chart(ctx, {
     type: 'bar',

@@ -30,17 +30,17 @@ import "chartkick/chart.js"
     saveButtons.forEach(function(button) {
       button.addEventListener("click", function(e) {
         e.preventDefault();
-        console.log("save!!!!")
+        // console.log("save!!!!")
         // skillId, skillLevelの取得
         var userId = document.getElementById("userId").value
         var skillId = e.target.dataset.skillId //OK!!!!!!!
         var skillElem = document.getElementById("skillId-" + skillId)
         var skillName = skillElem.querySelector(".name").textContent
         var skillLevel = document.getElementById("skillLevelSelect_"+skillId).value
-        console.log("user:" + userId)
-        console.log("skillId:" + skillId)
-        console.log("skillName" + skillName)
-        console.log("skillLevel:" + skillLevel)
+        // console.log("user:" + userId)
+        // console.log("skillId:" + skillId)
+        // console.log("skillName" + skillName)
+        // console.log("skillLevel:" + skillLevel)
         
         updateSkillLevel(userId, skillId, skillName, skillLevel);
       });
@@ -54,9 +54,9 @@ import "chartkick/chart.js"
         var skillId = e.target.dataset.skillId;
         var skillElem = document.getElementById("skillId-" + skillId)
         var skillName = skillElem.querySelector(".name").textContent
-        console.log("delete");
-        console.log("user:" + userId)
-        console.log(skillId + " : " + skillName);
+        // console.log("delete");
+        // console.log("user:" + userId)
+        // console.log(skillId + " : " + skillName);
         // console.log("delete:" + skillId)
         deleteSkill(userId, skillId, skillName);
       });
@@ -83,7 +83,16 @@ import "chartkick/chart.js"
       modal.style.display = "none";
       var userId = document.getElementById("userId").value;
       var host = window.location.host;
-      window.location.href = 'https://' + host + '/user_skill/' + userId + '/edit';
+      if (document.getElementById("skill_detail_skill_name") != null){
+        var skillName = document.getElementById("skill_detail_skill_name").value;
+        var categoryId = document.getElementById("categoryId").value
+      }
+      if (skillName === ''){
+        window.location.href = 'https://' + host + '/user_skill/' + userId + '/category/' + categoryId + '/new';
+      } else {
+        window.location.href = 'https://' + host + '/user_skill/' + userId + '/edit';
+      }
+
     });
 
     function updateSkillLevel(userId, skillId, skillName, skillLevel) {
@@ -129,6 +138,9 @@ import "chartkick/chart.js"
       request.onload = function() {
         if (request.status === 200) {
           showModal(categoryName + "に" + skillName + "を習得レベル" + skillLevel + "で追加しました！");
+        } else if (skillName === ""){
+          var host = window.location.host;
+          showModal("習得スキル名を入力してください。");
         } else {
           showModal(skillName + " の項目の追加に失敗しました。お手数ですが再度お試しください。");
         }
@@ -139,6 +151,6 @@ import "chartkick/chart.js"
     function showModal(message) {
       modalMessage.textContent = message;
       modal.style.display = "block";
-      console.log("showModal!!!!")
+      // console.log("showModal!!!!")
     }
   });
