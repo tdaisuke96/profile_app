@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :clear_flash
   def new
     @user = User.new
   end

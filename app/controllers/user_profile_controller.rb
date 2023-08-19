@@ -23,8 +23,14 @@ class UserProfileController < ApplicationController
       update_params[:profile_image] = profile_image.read
       puts('profile image not null!!!!')
     end
-    @user.update(update_params)
-    redirect_to(controller: 'profile_pages', action: 'show', id: @user.id)
+    
+    if @user.update(update_params)
+      redirect_to(controller: 'profile_pages', action: 'show', id: @user.id)
+    else
+      flash[:warning] = '自己紹介文は200文字以上、800文字未満で入力して下さい。'
+      # puts("NG!!!!!!!!!!!!!!"+user_profile_edit_url)
+      render :edit
+    end
   end
   
   private
