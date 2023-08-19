@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+  
+  def clear_flash
+    unless flash.nil?
+      flash.clear
+    end
+  end
 end

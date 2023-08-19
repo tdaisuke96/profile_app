@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_104008) do
+ActiveRecord::Schema.define(version: 2023_08_11_074608) do
 
   create_table "skill_categories", force: :cascade do |t|
     t.string "skill_category"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2023_08_05_104008) do
     t.index ["user_id"], name: "index_skill_details_on_user_id"
   end
 
+  create_table "update_skill_histories", force: :cascade do |t|
+    t.integer "skill_level"
+    t.integer "skill_detail_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["skill_detail_id"], name: "index_update_skill_histories_on_skill_detail_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.text "self_introduction"
@@ -40,4 +48,5 @@ ActiveRecord::Schema.define(version: 2023_08_05_104008) do
 
   add_foreign_key "skill_details", "skill_categories"
   add_foreign_key "skill_details", "users"
+  add_foreign_key "update_skill_histories", "skill_details"
 end

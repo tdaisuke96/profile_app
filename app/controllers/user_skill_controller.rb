@@ -35,6 +35,8 @@ class UserSkillController < ApplicationController
     @skill = @category.skill_details.build(create_params)
     @skill.user = @user
     @skill.save
+    add_skill_history
+    
 
 
 
@@ -105,6 +107,7 @@ class UserSkillController < ApplicationController
     # 下記元々
     # @skill.update(skill_params)
     @skill.update(skill_level: params[:skill_level])
+    add_skill_history
     render json: { success: true }
   end
   
@@ -121,5 +124,17 @@ class UserSkillController < ApplicationController
   private 
     def skill_params
       params.require(:skill_detail).permit(:skill_level, :skill_name, :id, :category_id)
+    end
+    
+    def add_skill_history
+      puts("add history****************")
+      puts(@skill.to_json)
+      puts("end****************")
+      update_params = {}
+      update_params[:id] = UpdateSkillHistory.pluck(:id).max + 1
+      update_params[:skill_level] = @skill.skill_level
+      @history = @skill.update_skill_histories.build(update_params)
+      puts(@history.to_json)
+      @history.save
     end
 end

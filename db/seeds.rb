@@ -1,7 +1,7 @@
 User.create!(
   id: 1,
   email: 'hoge@example.com',
-  self_introduction: 'Nice to meet you!',
+  self_introduction: 'これは自己紹介です。'*20,
   password: 'hoge',
   password_confirmation: 'hoge',
   created_at: '2022-03-11 01:53:22',
@@ -92,3 +92,11 @@ SkillDetail.create!(
   created_at: '2023-07-11 01:53:22',
   updated_at: '2023-07-11 01:53:22'
 )
+
+# update_skill_histories
+SkillDetail.all.each do |skill|
+  skill.update_skill_histories.create!(
+    skill_level: skill.skill_level,
+    created_at: skill.created_at
+  )
+end
