@@ -87,6 +87,18 @@ class ProfilePagesController < ApplicationController
         # その月の最終更新レコードがnilじゃなければ月の合計更新レベルに加算していく
         unless last_updated_history.nil?
           total_updated_level[month.to_date.strftime('%B')] += last_updated_history.skill_level
+        else
+          # その月の更新がなければ、過去の最終更新レコードを取得
+          unless skill_history.where("created_at <= ?",month.end_of_month).order(created_at: :desc).first.nil?
+            # レコードがあればその月の合計値に加算
+            total_updated_level[month.to_date.strftime('%B')] += skill_history.where("created_at <= ?",month.end_of_month).order(created_at: :desc).first.skill_level
+          end
+          # 下記デバッグ用
+          # 全履歴から最終更新値を取得（未来月まで含めちゃう）
+          puts(month.to_date.strftime('%B')+"に更新ないよ＊＊＊＊＊＊＊＊＊"+skill_history.order(created_at: :desc).first.skill_level.to_s)
+          # puts(month.end_of_month)
+          puts(skill_history.where("created_at <= ?",month.end_of_month).order(created_at: :desc).first.to_json)
+          puts("************")
         end
       end
     end
